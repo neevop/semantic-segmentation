@@ -1,5 +1,5 @@
 # The log root directory:
-LOGROOT: logs
+LOGROOT: '/content/'
 
 # Code to ignore for copy
 CODE_IGNORE_PATTERNS: '*.pth,*.pyc,docs,test,.git,*__pycache__,logs'
