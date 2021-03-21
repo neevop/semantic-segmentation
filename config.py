@@ -49,7 +49,7 @@ cfg = __C
 __C.GLOBAL_RANK = 0
 __C.EPOCH = 0
 # Absolute path to a location to keep some large files, not in this dir.
-__C.ASSETS_PATH = '/home/dcg-adlr-atao-data.cosmos277/assets'
+__C.ASSETS_PATH = '/content/drive/MyDrive/deep_learning_pro/semantic-segmentation/assets'
 
 # Use class weighted loss per batch to increase loss for low pixel count classes per batch
 __C.BATCH_WEIGHTING = False
