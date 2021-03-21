@@ -1,5 +1,5 @@
 #!/bin/bash
-git clone https://github.com/NVIDIA/apex.git apex && cd apex && python setup.py install --cuda_ext --cpp_ext
+git clone https://github.com/NVIDIA/apex.git apex && cd apex && python3 setup.py install --cuda_ext --cpp_ext
 
 pip install -q torch_snippets
 pip install -q pytorch_model_summary
