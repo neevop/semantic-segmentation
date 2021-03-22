@@ -6,8 +6,8 @@ HPARAMS: [
   {
    dataset: cityscapes,
    cv: 0,
-   syncbn: true,
-   apex: true,
+   syncbn: false,
+   apex: false,
    fp16: true,
    bs_val: 1,
    eval: val,

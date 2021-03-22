@@ -1,0 +1,129 @@
+# Train script tamplate
+
+CMD: "python -m torch.distributed.launch --nproc_per_node=1 train.py"
+
+HPARAMS: [
+  {
+  # base  params
+   dataset: cityscapes,  # placeholder for dataset instance
+   cv: 0,
+   syncbn: true,
+   apex: true,
+   fp16: true,
+   crop_size: "800,800",
+   bs_trn: 1,
+   poly_exp: 2,
+   lr: 5e-3,
+   max_epoch: 175,
+   arch: deepv3.DeepV3PlusW38,
+   result_dir: LOGDIR,
+   RUNX.TAG: '{arch}',
+
+  # optional params and default values
+   lr: 0.002,
+   arch: 'deepv3.DeepWV3Plus', # network architecture
+   optimizer: 'sgd',  # optimizer
+   trunk: 'resnet101',  # trunk model
+   bs_trn: 2,  # batch size for training per gpu
+   bs_val: 1,  # batch size for validation per gpu
+   crop_size: 896,  # training crop size: either scalar or h,w
+   result_dir: './logs',  # where to write log output
+
+   num_workers: 4,  # cpu worker threads per dataloader instance
+   cv: 0,  # Cross-validation split id to use
+   class_uniform_pct: 0.5,  # what fraction of images is uniformly sampled
+   class_uniform_title: 1024,  # title size for class uniform sampling
+   coarse_boost_classes: None, # use coarse annotations for specific classes
+   custom_coarse_dropout_classes: None, # drop some classes for auto-labelling
+   strict_bdr_cls: '',  # enable boundary label relaxation for specific classes
+   rlx_off_epoch: -1,  # turn off border relaxation after specific epoch count
+   rescale: 1.0,  # warm restarts new lr ratio compared to original lr
+   repoly: 1.5,  # warm restart new poly exp
+   local_rank: 0,  # parameter used by apex library
+   global_rank: 0, # parameter used by apex library
+   hardnm: 0,  # 0 means no aug, 1 means hard negative mining inter 1, 2 means 
+               # hard negative mining iter 2
+   max_epoch: 180,
+   max_cu_epoch: 150,  # class uniform max epochs
+   start_epoch: 0,
+   color_aug: 0.25,  # level of color augmentation
+   lr_schedule: 'poly',  # name of lr schedule: poly
+   poly_exp: 1.0,  # polynomial LR exponent
+   poly_step: 110,  # polynomial epoch step
+   scale_min: 0.5,  # dynamically scale training images down to this size
+   scale_max: 2.0,  # dynamically scale training images up to this size
+   weight_decay: 1e-4,
+   momentum: 0.9,
+   snapshot: None,
+   resume: None,  # continue training from a checkpoint.
+   exp: 'default',  # expriment directory name
+   wt_bound: 1.0,  # weight scaling for losses
+   maxSkip: 0,  # skip x number of frames of video augmented dataset
+   default_scale: 1.0,  # default scale to run validation
+   eval: None,  # just run evalutatin, can be set to val or trn or folder
+   eval_folder: None,  # path to frames to evalute
+   extra_scales: '0.5,2.0',
+   n_scales: None,
+   mscale_lo_scale: 0.5,  # low resolution training scale
+   pre_size: None,  # resize long edge of images to this before augmentation
+   amp_opt_level: '01',  # amp optimization level
+   rand_augment: None,  # rand augment setting: 'N,M'
+   dump_topn: 0,  # dump worst val images
+   dump_assets: ,  # dump interesting assets
+   dump_all_images: ,  # dump all images, not just a subset
+   dump_for_submission: ,  # dump assets for submission
+   dump_for_auto_labelling: ,  # dump assets for submission
+   dump_topn_all: ,  # dump topN worst failures
+   custom_coarse_prob: None,  # custom coarse prob
+   aspp_bot_ch: None,
+   trial: None,
+   mscale_init: None,  # default attention initialization
+   set_cityscapes_root: None,
+   ocr_alpha: None,  # set HRNet OCR auxiliary loss weight
+   val_freq: 1,  # how often in epochs to run validation
+   segattn_bot_ch: None,  # bottleneck channels for seg and attn heads
+   supervised_mscale_loss_wt: None,  # weighting for supervised loss
+
+  # action params
+  img_wt_loss: False,  # pre-image class-weighted loss
+  rmi_loss: False, # use RMI loss
+  batch_weighting: False, # batch weighting for class
+  jointwtborder: False,  # enable boundary label relaxation
+  apex: False,  # use nvidia apex distributed data parallel
+  fp16: False,  # use nvidia apex amp
+  amsgrad: True,  # #########@todo
+  freeze_trunk: False, 
+  gblur: False,  # use guassian blur augmentation
+  bblur: False,  # use bilateral blur augmentation
+  brt_aug: False,  # use brightness augmentation
+  restore_optimizer: False,
+  restore_net: False,
+  syncbn: False,  # use synchronized BN
+  dump_augmentation_images: False,  # dump augmentated images for sanity check
+  test_mode: False,  # minmun resting to vertify nothing failed, run code 1 epoch
+  scf: False,  # scale correction factor
+  full_crop_training: False,  # full crop training
+  multi_scale_inference: ,  #################@todo
+  log_msinf_to_tb: False, # log multi-scale inference to tensorboard
+  three_scale: False,
+  alt_two_scale: False,
+  do_flip: False,
+  align_corners: False,
+  translate_aug_fix: False,
+  init_decoder: False,  # initialize decoder with kaiming normal
+  only_coarse: False,
+  mask_out_cityscapes: False,
+  ocr_aspp: False,
+  map_crop_val: False,
+  mcale_cat_scale_flt: False,
+  mcale_dropout: False,
+  mscale_no3x3: False,  # no inner 3x3
+  mscale_old_arch: False,  # use old attention head
+  attnscale_bn_head: False,
+  deterministic: False,
+  summary: false,
+  grad_ckpt: False,
+  no_metrics: False,  # prevent calculation of metrics
+  ocr_aux_loss_rmi: False,  # allow rmi for aux loss
+  },
+]

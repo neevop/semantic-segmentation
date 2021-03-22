@@ -1,7 +1,7 @@
 # Train cityscapes with deeplab v3+ and wide-resnet-38 trunk
 # Only requires 16GB gpus
 
-CMD: "python -m torch.distributed.launch --nproc_per_node=8 train.py"
+CMD: "python -m torch.distributed.launch --nproc_per_node=1 train.py"
 
 HPARAMS: [
   {
