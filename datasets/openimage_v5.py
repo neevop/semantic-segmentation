@@ -41,6 +41,21 @@ def subset_data_mask():
 
     return subset_data, subset_masks
 
+def get_tmp_masks(subset_data, subset_masks):
+    tmp_masks = glob.glob('tmp_masks', slient=True)
+    items = [(m, fname(m)) for m in tmp_masks]
+    for i, j in items:
+        os.rename(i, f'masks/{j}')
+    
+    masks = glob.glob('masks')
+    masks = [fname(mask) for mask in masks]
+
+    subset_data = subset_data[subset_data['MaskPath'].map(lambda x: x in masks)]
+    subset_imageIds = subset_data['ImageID'].tolist()
+
+    for openimages.download import _download_images_by_id
+    _download_images_by_id(subset_imageIds, 'train', './iages/')
+
 def coarse_cities(root):
     """
     Find coarse cities
